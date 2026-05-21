@@ -1,0 +1,453 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Open Library</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html{
+        scroll-behavior:smooth;
+    }
+
+    body{
+        background:#111;
+        color:white;
+        overflow-x:hidden;
+    }
+
+    /* =========================
+       NAVIGATION
+    ==========================*/
+    header{
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        z-index:1000;
+        background:linear-gradient(to bottom,#7a4a1f,#4b2d12);
+        border-bottom:4px solid #2b1707;
+        box-shadow:0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .navbar{
+        width:90%;
+        margin:auto;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:18px 0;
+    }
+
+    .logo{
+        font-size:28px;
+        font-weight:bold;
+        color:#f6d28b;
+        letter-spacing:2px;
+    }
+
+    .nav-links{
+        display:flex;
+        gap:25px;
+    }
+
+    .nav-links a{
+        color:white;
+        text-decoration:none;
+        font-size:16px;
+        transition:0.3s;
+        position:relative;
+    }
+
+    .nav-links a::after{
+        content:'';
+        position:absolute;
+        width:0%;
+        height:2px;
+        background:#f6d28b;
+        left:0;
+        bottom:-6px;
+        transition:0.3s;
+    }
+
+    .nav-links a:hover{
+        color:#f6d28b;
+    }
+
+    .nav-links a:hover::after{
+        width:100%;
+    }
+
+    /* =========================
+       HERO / INTRODUCTION
+    ==========================*/
+    .hero{
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        padding:120px 20px 80px;
+        background:
+        linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),
+        url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1200&auto=format&fit=crop');
+        background-size:cover;
+        background-position:center;
+    }
+
+    .hero-content{
+        max-width:900px;
+        animation:fadeIn 1.5s ease;
+    }
+
+    .hero h1{
+        font-size:70px;
+        margin-bottom:25px;
+        color:#f6d28b;
+    }
+
+    .hero p{
+        font-size:22px;
+        line-height:1.8;
+        color:#ddd;
+        margin-bottom:40px;
+    }
+
+    .hero button{
+        padding:15px 35px;
+        border:none;
+        background:#c48b3c;
+        color:white;
+        font-size:18px;
+        border-radius:8px;
+        cursor:pointer;
+        transition:0.4s;
+        box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .hero button:hover{
+        background:#e0a95a;
+        transform:translateY(-5px) scale(1.05);
+    }
+
+    /* =========================
+       FEATURES SECTION
+    ==========================*/
+    .features{
+        padding:100px 8%;
+        background:#181818;
+    }
+
+    .section-title{
+        text-align:center;
+        margin-bottom:70px;
+    }
+
+    .section-title h2{
+        font-size:45px;
+        color:#f6d28b;
+        margin-bottom:15px;
+    }
+
+    .section-title p{
+        color:#bbb;
+        font-size:18px;
+    }
+
+    .card-container{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+        gap:35px;
+    }
+
+    .card{
+        background:#222;
+        border-radius:18px;
+        padding:40px 25px;
+        text-align:center;
+        transition:0.5s;
+        position:relative;
+        overflow:hidden;
+        cursor:pointer;
+        border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .card::before{
+        content:'';
+        position:absolute;
+        top:-100%;
+        left:0;
+        width:100%;
+        height:100%;
+        background:linear-gradient(
+            rgba(255,255,255,0.12),
+            transparent
+        );
+        transition:0.5s;
+    }
+
+    .card:hover::before{
+        top:100%;
+    }
+
+    .card:hover{
+        transform:translateY(-12px) scale(1.03);
+        box-shadow:0 18px 35px rgba(0,0,0,0.45);
+        border-color:#c48b3c;
+    }
+
+    .card-icon{
+        font-size:55px;
+        margin-bottom:20px;
+    }
+
+    .card h3{
+        color:#f6d28b;
+        margin-bottom:15px;
+        font-size:28px;
+    }
+
+    .card p{
+        color:#ccc;
+        line-height:1.7;
+        font-size:16px;
+    }
+
+    /* =========================
+       COMMUNITY SECTION
+    ==========================*/
+    .community{
+        padding:100px 8%;
+        background:#111;
+        text-align:center;
+    }
+
+    .community h2{
+        font-size:45px;
+        margin-bottom:20px;
+        color:#f6d28b;
+    }
+
+    .community p{
+        max-width:800px;
+        margin:auto;
+        line-height:1.8;
+        color:#ccc;
+        font-size:18px;
+    }
+
+    /* =========================
+       FOOTER
+    ==========================*/
+    footer{
+        background:#2b1707;
+        padding:30px 20px;
+        text-align:center;
+        border-top:4px solid #7a4a1f;
+    }
+
+    footer p{
+        color:#e4c28c;
+        font-size:15px;
+        line-height:1.8;
+    }
+
+    /* =========================
+       ANIMATIONS
+    ==========================*/
+    @keyframes fadeIn{
+        from{
+            opacity:0;
+            transform:translateY(40px);
+        }
+        to{
+            opacity:1;
+            transform:translateY(0);
+        }
+    }
+
+    /* =========================
+       RESPONSIVE
+    ==========================*/
+    @media(max-width:768px){
+
+        .navbar{
+            flex-direction:column;
+            gap:15px;
+        }
+
+        .hero h1{
+            font-size:48px;
+        }
+
+        .hero p{
+            font-size:18px;
+        }
+
+        .section-title h2,
+        .community h2{
+            font-size:34px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+<header>
+    <div class="navbar">
+        <div class="logo">Open Library</div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#features">Categories</a>
+            <a href="#community">Community</a>
+            <a href="#footer">Contact</a>
+        </div>
+    </div>
+</header>
+
+<!-- =========================
+     HERO SECTION
+========================== -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Open Library</h1>
+
+        <p>
+            A free online library where everyone can read, learn,
+            and share knowledge with the world. Explore thousands
+            of books, articles, and educational resources in one
+            beautiful open community.
+        </p>
+
+        <button onclick="showMessage()">
+            Explore Library
+        </button>
+    </div>
+</section>
+
+<!-- =========================
+     FEATURES
+========================== -->
+<section class="features" id="features">
+
+    <div class="section-title">
+        <h2>Book Categories</h2>
+        <p>
+            Discover knowledge across multiple fields and interests
+        </p>
+    </div>
+
+    <div class="card-container">
+
+        <div class="card">
+            <div class="card-icon">📚</div>
+            <h3>Literature</h3>
+            <p>
+                Explore classic novels, poetry, modern fiction,
+                and timeless literary masterpieces from around the world.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🧪</div>
+            <h3>Science</h3>
+            <p>
+                Learn about physics, chemistry, biology,
+                and the discoveries shaping our future.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Technology</h3>
+            <p>
+                Access programming, web development,
+                AI, cybersecurity, and modern tech resources.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🌍</div>
+            <h3>History</h3>
+            <p>
+                Travel through civilizations, cultures,
+                and important moments that shaped humanity.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎨</div>
+            <h3>Arts</h3>
+            <p>
+                Discover creativity through painting,
+                music, design, photography, and architecture.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📖</div>
+            <h3>Education</h3>
+            <p>
+                Share tutorials, learning materials,
+                academic resources, and educational guides.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- =========================
+     COMMUNITY
+========================== -->
+<section class="community" id="community">
+
+    <h2>Knowledge for Everyone</h2>
+
+    <p>
+        Open Library is built on the idea that knowledge should be
+        freely accessible to all people. Readers, students,
+        researchers, and creators can connect together to build
+        a stronger learning community without barriers.
+    </p>
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================== -->
+<footer id="footer">
+
+    <p>
+        © 2026 Open Library. All Rights Reserved.
+    </p>
+
+    <p>
+        Designed for free knowledge sharing and online learning.
+    </p>
+
+</footer>
+
+<script>
+    function showMessage(){
+        alert(
+            "Welcome to Open Library! Start exploring and sharing knowledge today."
+        );
+    }
+</script>
+
+</body>
+</html>
+```
